@@ -22,5 +22,12 @@ Route::middleware(['auth'])->group(function() {
 
 	Route::middleware(['approved'])->group(function() {
 		Route::get('/home', 'HomeController@index')->name('home');
+		Route::get('/users/edit/{user_id}', 'UserController@show_edit')->name('admin.users.show_edit');
+	});
+
+	Route::middleware(['admin'])->group(function() {
+		Route::get('/users', 'UserController@index')->name('admin.users.index');
+		Route::get('/users/{user_id}/approve', 'UserController@approve')->name('admin.users.approve');
+		Route::post('/users/post_edit/{user_id}', 'UserController@post_edit')->name('admin.users.post_edit');
 	});
 });
